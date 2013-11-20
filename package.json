@@ -1,0 +1,9 @@
+{
+  "name": "ember-webpack-resolver",
+  "version": "0.2.0",
+  "description": "An Ember resolver for use with webpack",
+  "main": "index.js",
+  "author": "Kyle Robinson Young <kyle@dontkry.com> (http://dontkry.com)",
+  "license": "MIT",
+  "keywords": ["ember", "resolver"]
+}
