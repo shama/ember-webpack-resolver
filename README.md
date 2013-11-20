@@ -3,8 +3,6 @@
 > An Ember.js resolver heavily inspired by
 https://github.com/stefanpenner/ember-jj-abrams-resolver but mainly for use with webpack.
 
-*Please view [Single Page Apps with Webpack](http://dontkry.com/posts/code/single-page-apps-with-webpack.html) for more information on why this exists.*
-
 ## Install
 
 ``` shell
