@@ -65,17 +65,12 @@ var App = Ember.Application.create({
 
 This will look for modules within the `node_modules/` folder that end with `-ember-component/index`.
 
-In order to properly encapsulate components and their templates, this resolver assumes a specific module format of your vendor components:
-
 ``` javascript
 // node_modules/some-widget-ember-component/index.js
-module.exports = function(template) {
-  if (!Ember.TEMPLATES[template]) Ember.TEMPLATES[template] = require('./index.hbs');
-
-  return Ember.Component.extend({
-    classNames: ['some-widget']
-  });
-};
+module.exports = Ember.Component.extend({
+  defaultTemplate: require('./index.hbs'),
+  classNames: ['some-widget']
+});
 ```
 
 ``` html
@@ -83,24 +78,20 @@ module.exports = function(template) {
 <div {{bindAttr width="width" height="height"}}>SOME WIDGET</div>
 ```
 
-The above method is verbose but it makes your components more flexible.
-
-You can explicitly require your components and dynamically set the template name:
+You can still explicitly require your components and dynamically set the template name:
 
 ``` javascript
-App.AnotherWidgetComponent = require('some-widget-ember-component')('components/another-widget');
+App.AnotherWidgetComponent = require('some-widget-ember-component');
+Ember.TEMPLATES['components/another-widget'] = require('some-widget-ember-component/index.hbs');
 ```
 
 Or if you want to extend another component and package it:
 
 ``` javascript
 // node_modules/enhanced-widget-ember-component/index.js
-module.exports = function(template) {
-  var SomeWidget = require('some-widget-ember-component')(template);
-  return SomeWidget.extend({
-    classNames: ['enhanced-widget']
-  });
-};
+module.exports = require('some-widget-ember-component').extend({
+  classNames: ['enhanced-widget']
+});
 ```
 
 Hooray! Shareable, nested, auto-resolving Ember components!
