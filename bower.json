@@ -1,0 +1,20 @@
+{
+  "name": "ember-webpack-resolver",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/shama/ember-webpack-resolver",
+  "authors": [
+    "Kyle Robinson Young <kyle@dontkry.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "ember": "~1.1.2"
+  }
+}
