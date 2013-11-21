@@ -33,7 +33,7 @@ A very simple config will resolve just your local modules:
 
 ``` javascript
 var App = Ember.Application.create({
-  Resolver: require('ember-webpack-resolver')({ context: require })
+  Resolver: require('ember-webpack-resolver?' + __dirname)()
 });
 ```
 
@@ -41,8 +41,7 @@ If you're using a file extension other than `.js`, supply the lookup extensions 
 
 ``` javascript
 var App = Ember.Application.create({
-  Resolver: require('ember-webpack-resolver')({
-    context: require,
+  Resolver: require('ember-webpack-resolver?' + __dirname)({
     extensions: ['.coffee', '.hbs'],
   })
 });
@@ -53,8 +52,7 @@ If you want to also resolve modules within vendor folders, a bit more configurat
 
 ``` javascript
 var App = Ember.Application.create({
-  Resolver: require('ember-webpack-resolver')({
-    context: require,
+  Resolver: require('ember-webpack-resolver?' + __dirname)({
     component: [{
       context: require.context('../node_modules/', true, /(.+)-ember-component\/index/),
       format: '%@-ember-component/index'

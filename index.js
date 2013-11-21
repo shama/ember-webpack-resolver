@@ -1,5 +1,11 @@
 module.exports = function(options) {
   options = options || {};
+
+  // Automatically set context if require('ember-webpack-resolver?' + __dirname)
+  if (__resourceQuery && !options.context) {
+    options.context = require.context(__resourceQuery.substr(1));
+  }
+
   options.modulePrefix = options.modulePrefix || './';
   options.extensions = options.extensions || ['.js', '.hbs'];
   options.fixToString = options.fixToString !== false;
