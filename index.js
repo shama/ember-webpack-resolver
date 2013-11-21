@@ -120,9 +120,11 @@ module.exports = function(options) {
 
   function resolveRouter(parsedName) {
     if (parsedName.fullName === 'router:main') {
-      return options.context(options.modulePrefix + 'router');
+      var name = options.modulePrefix + 'router';
+      if (options.context.keys().indexOf(name) !== -1) {
+        return options.context(name);
+      }
     }
-    return this._super.apply(this, arguments);
   }
 
   return Ember.DefaultResolver.extend({
