@@ -42,7 +42,7 @@ If you're using a file extension other than `.js`, supply the lookup extensions 
 ``` javascript
 var App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
-    extensions: ['.coffee', '.hbs'],
+    extensions: ['.coffee', '.hbs']
   })
 });
 ```
@@ -53,48 +53,21 @@ If you want to also resolve modules within vendor folders, a bit more configurat
 ``` javascript
 var App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
-    component: [{
-      context: require.context('../node_modules/', true, /(.+)-ember-component\/index/),
-      format: '%@-ember-component/index'
-    }]
+    components: {
+      'some-widget': require('some-widget-ember-component')
+    }
   })
 });
 ```
 
-This will look for modules within the `node_modules/` folder that end with `-ember-component/index`.
-
-``` javascript
-// node_modules/some-widget-ember-component/index.js
-module.exports = Ember.Component.extend({
-  defaultTemplate: require('./index.hbs'),
-  classNames: ['some-widget']
-});
-```
+Then it will resolve to the specified module when inserted into your template:
 
 ``` html
-<!-- node_modules/some-widget-ember-component/index.hbs -->
-<div {{bindAttr width="width" height="height"}}>SOME WIDGET</div>
+<h1>{{some-widget value="Hooray!"}}</h1>
 ```
-
-You can still explicitly require your components and dynamically set the template name:
-
-``` javascript
-App.AnotherWidgetComponent = require('some-widget-ember-component');
-Ember.TEMPLATES['components/another-widget'] = require('some-widget-ember-component/index.hbs');
-```
-
-Or if you want to extend another component and package it:
-
-``` javascript
-// node_modules/enhanced-widget-ember-component/index.js
-module.exports = require('some-widget-ember-component').extend({
-  classNames: ['enhanced-widget']
-});
-```
-
-Hooray! Shareable, nested, auto-resolving Ember components!
 
 ## Release History
+* 0.3.0 - simplify resolving components
 * 0.2.0 - handle nested components, update API
 * 0.1.0 - initial release
 

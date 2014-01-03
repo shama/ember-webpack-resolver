@@ -10,22 +10,7 @@ module.exports = function(options) {
   options.extensions = options.extensions || ['.js', '.hbs'];
   options.fixToString = options.fixToString !== false;
   options.has = options.has || options.context.keys();
-
-  // Find modules in map for dynamic context requires
-  function findInMap(parsedName, callback) {
-    if (!options[parsedName.type]) return false;
-    var map = options[parsedName.type];
-    if (!Array.isArray(map)) map = [map];
-    for (var i = 0; i < map.length; i++) {
-      var context = map[i].context;
-      var find = './' + Ember.String.fmt(map[i].format, [parsedName.fullNameWithoutType]);
-      var keys = context.keys();
-      if (keys.indexOf(find) !== -1) {
-        return callback(find, context);
-      }
-    }
-    return false;
-  }
+  options.components = options.components || Object.create(null);
 
   function parseName(fullName) {
     var nameParts = fullName.split(':');
@@ -63,20 +48,10 @@ module.exports = function(options) {
       moduleName = variations[0];
     }
 
-    // If module not found, look in the map
-    if (moduleName === false) {
-      moduleName = findInMap(parsedName, function(name, context) {
-        // Handle module.exports = function(template) {}; module format
-        if (parsedName.type === 'component') {
-          context = context(name);
-          name = 'components/' + parsedName.fullNameWithoutType;
-        }
-        return [name, context];
-      });
-      if (moduleName !== false) {
-        contextrequire = moduleName[1];
-        moduleName = moduleName[0];
-      }
+    // If module not found, look if matches a specified component
+    if (moduleName === false && parsedName.type === 'component' && options.components[parsedName.fullNameWithoutType]) {
+      moduleName = parsedName.fullNameWithoutType;
+      factory = options.components[parsedName.fullNameWithoutType];
     }
 
     // Module not found, return the parent
@@ -87,13 +62,15 @@ module.exports = function(options) {
       return this._super.apply(this, arguments);
     }
 
-    try {
-      factory = contextrequire(moduleName);
-    } catch (err) {
-      if (Ember.ENV.LOG_MODULE_RESOLVER) {
-        Ember.Logger.info('miss', moduleName);
+    if (!factory) {
+      try {
+        factory = contextrequire(moduleName);
+      } catch (err) {
+        if (Ember.ENV.LOG_MODULE_RESOLVER) {
+          Ember.Logger.info('miss', moduleName);
+        }
+        return this._super.apply(this, arguments);
       }
-      return this._super.apply(this, arguments);
     }
 
     if (factory === undefined) {
