@@ -1,8 +1,11 @@
 {
   "name": "ember-webpack-resolver",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "An Ember resolver for use with webpack",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "grunt test",
     "start": "grunt start",
