@@ -34,7 +34,7 @@ module.exports = ->
     watch:
       test:
         options: livereload: true, spawn: false
-        files: ['test/**/*']
+        files: ['index.js', 'test/**/*']
         tasks: 'default'
 
   # load npm installed tasks
