@@ -8,8 +8,7 @@
   ],
   "scripts": {
     "test": "grunt test",
-    "start": "grunt start",
-    "install": "bower install"
+    "start": "grunt start"
   },
   "author": "Kyle Robinson Young <kyle@dontkry.com> (http://dontkry.com)",
   "license": "MIT",
