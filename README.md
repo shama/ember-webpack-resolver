@@ -27,6 +27,10 @@ This resolver is intended to resolve modules with a folder structure like such:
 | --- some-widget-ember-component
 | ----- index.js
 | ----- index.hbs
+| - bower_components/
+| --- some-other-ember-component
+| ----- index.js
+| ----- index.hbs
 ```
 
 A very simple config will resolve just your local modules:
@@ -54,7 +58,8 @@ If you want to also resolve modules within vendor folders, a bit more configurat
 var App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
     components: {
-      'some-widget': require('some-widget-ember-component')
+      'some-widget': require('some-widget-ember-component'),
+      'other-widget': require('some-other-ember-component')
     }
   })
 });
@@ -64,6 +69,7 @@ Then it will resolve to the specified module when inserted into your template:
 
 ``` html
 <h1>{{some-widget value="Hooray!"}}</h1>
+<p>{{#other-widget}}Stuff{{/other-widget}}</p>
 ```
 
 ## Release History
