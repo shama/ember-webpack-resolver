@@ -15,6 +15,7 @@
     "tests"
   ],
   "devDependencies": {
-    "ember": "~1.1.2"
+    "ember": "~1.2.0",
+    "qunit": "~1.12.0"
   }
 }
