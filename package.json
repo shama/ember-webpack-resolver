@@ -4,7 +4,9 @@
   "description": "An Ember resolver for use with webpack",
   "main": "index.js",
   "scripts": {
-    "test": "webpack-dev-server --config test/webpack.config.js"
+    "test": "grunt test",
+    "start": "grunt start",
+    "install": "bower install"
   },
   "author": "Kyle Robinson Young <kyle@dontkry.com> (http://dontkry.com)",
   "license": "MIT",
@@ -13,11 +15,18 @@
     "resolver"
   ],
   "devDependencies": {
-    "should": "~2.1.0",
-    "mocha": "~1.14.0",
-    "mocha-loader": "~0.6.3",
-    "webpack": "~0.11.6",
-    "webpack-dev-server": "~0.11.1",
-    "script-loader": "~0.5.1"
+    "script-loader": "~0.5.1",
+    "style-loader": "~0.6.0",
+    "css-loader": "~0.6.6",
+    "grunt": "~0.4.2",
+    "grunt-contrib-qunit": "~0.3.0",
+    "grunt-contrib-connect": "~0.6.0",
+    "webpack": "~1.0.0-beta4",
+    "grunt-webpack": "~1.0.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "matchdep": "~0.3.0",
+    "ember-templates-loader": "~0.1.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }
