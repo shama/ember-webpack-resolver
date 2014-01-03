@@ -3,7 +3,7 @@ module.exports = function(options) {
 
   // Automatically set context if require('ember-webpack-resolver?' + __dirname)
   if (__resourceQuery && !options.context) {
-    options.context = require.context(__resourceQuery.substr(1), true, /^\.\/.*s\/[^\/]+$|^\.\/.*router$/);
+    options.context = require.context(__resourceQuery.substr(1), true);
   }
 
   options.modulePrefix = options.modulePrefix || './';
