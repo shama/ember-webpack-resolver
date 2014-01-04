@@ -72,6 +72,21 @@ Then it will resolve to the specified module when inserted into your template:
 <p>{{#other-widget}}Stuff{{/other-widget}}</p>
 ```
 
+---
+
+*To resolve modules within the `bower_components` folder, be sure to add the folder to your webpack config:*
+
+``` javascript
+module.exports = {
+  // ...
+  resolve: {
+    moduleDirectories: ["node_modules", "bower_components"]
+  }
+};
+```
+
+---
+
 ## Release History
 * 0.3.0 - simplify resolving components
 * 0.2.0 - handle nested components, update API
