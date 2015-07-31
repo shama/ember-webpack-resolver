@@ -48,6 +48,25 @@ module.exports = function(options) {
       moduleName = variations[0];
     }
 
+    /**
+      A possible array of functions to test for moduleName's based on the provided
+      `parsedName`. This allows easy customization of additional module based
+      lookup patterns.
+    */
+    if (Array.isArray(options.lookupPatterns)) {
+      for (var i = 0; i < options.lookupPatterns.length; i++) {
+        var lookupFn = options.lookupPatterns[i];
+        if (typeof lookupFn === 'function') {
+          var result = lookupFn(parsedName);
+          if (!(result === void 0)) {
+            moduleName = result;
+          }
+        } else {
+          throw new Error('Lookup patterns should be functions. Got type "' + typeof lookupFn + '" instead.');
+        }
+      }
+    }
+
     // If module not found, look if matches a specified component
     if (moduleName === false && parsedName.type === 'component' && options.components[parsedName.fullNameWithoutType]) {
       moduleName = parsedName.fullNameWithoutType;

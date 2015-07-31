@@ -51,6 +51,25 @@ var App = Ember.Application.create({
 });
 ```
 
+### Custom Lookup Patterns
+If you have a custom module type that you need to resolve, use the `lookupPatterns` option. It takes an array of functions with each function receiving a `parsedName` argument. The function optionally returns a `moduleName` value based on some criteria.
+
+``` javascript
+var reactModuleFilter = function(parsedName) {
+  if (parsedName.type === 'react') {
+    return './react/' + parsedName.fullNameWithoutType
+  }
+}
+
+var App = Ember.Application.create({
+  Resolver: require('ember-webpack-resolver?' + __dirname)({
+    extensions: ['.coffee', '.hbs'],
+    lookupPatterns: [reactModuleFilter]
+  })
+});
+
+```
+
 ### Resolving Components
 If you want to also resolve modules within vendor folders, a bit more configuration is required:
 
