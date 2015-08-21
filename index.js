@@ -133,7 +133,7 @@ module.exports = function(options) {
       // 1. `needs: ['posts/post']`
       // 2. `{{render 'posts/post'}}`
       // 3. `this.render('posts/post')` from Route
-      return Ember.String.dasherize(fullName.replace(/\./g, '/'));
+      return fullName.replace(/\./g, '/');
     }
   });
 };
