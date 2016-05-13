@@ -96,6 +96,11 @@ module.exports = function(options) {
       throw new Error(' Expected to find: "' + parsedName.fullName + '" within "' + moduleName + '" but got "undefined". Did you forget to `module.exports` within "' + moduleName + '"?');
     }
 
+    // If using `export default`
+    if (factory && factory['default']) {
+      factory = factory['default'];
+    }
+
     // To fix class introspection
     if (options.fixToString) {
       var className = factory.toString();
