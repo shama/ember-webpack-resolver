@@ -17,12 +17,7 @@
   "bugs": {
     "url": "https://github.com/shama/ember-webpack-resolver/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/shama/ember-webpack-resolver/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "keywords": [
     "ember",
     "resolver",
