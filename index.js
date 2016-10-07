@@ -105,11 +105,13 @@ module.exports = function(options) {
     if (options.fixToString) {
       var className = factory.toString();
       if (className.indexOf('(') !== -1) {
-        factory.toString = function() {
-          var type = Ember.String.classify(parsedName.type);
-          if (type === 'Model') type = '';
-          return 'App.' + Ember.String.classify(parsedName.fullNameWithoutType + type);
-        };
+        factory.toString = (function(type, fullNameWithoutType) {
+          return function () {
+            type = Ember.String.classify(type);
+            if (type === 'Model') type = '';
+            return 'App.' + Ember.String.classify(fullNameWithoutType + type);
+          }
+        })(parsedName.type, parsedName.fullNameWithoutType);
       }
     }
 
