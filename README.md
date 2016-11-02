@@ -107,6 +107,7 @@ module.exports = {
 ---
 
 ## Release History
+* 1.0.0 - Support for returning Ember classes with `lookupPatterns`.
 * 0.3.0 - simplify resolving components
 * 0.2.0 - handle nested components, update API
 * 0.1.0 - initial release

@@ -1,6 +1,6 @@
 {
   "name": "ember-webpack-resolver",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "An Ember resolver for use with webpack",
   "main": "index.js",
   "files": [
