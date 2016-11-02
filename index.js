@@ -59,7 +59,12 @@ module.exports = function(options) {
         if (typeof lookupFn === 'function') {
           var result = lookupFn(parsedName);
           if (!(result === void 0)) {
-            moduleName = result;
+            if (typeof result === 'string') {
+              moduleName = result;
+            } else {
+              factory = result;
+              moduleName = true;
+            }
           }
         } else {
           throw new Error('Lookup patterns should be functions. Got type "' + typeof lookupFn + '" instead.');
