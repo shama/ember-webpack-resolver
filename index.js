@@ -24,6 +24,14 @@ module.exports = function(options) {
     };
   }
 
+  function getToStringFunction(type, fullNameWithoutType) {
+    return function () {
+      type = Ember.String.classify(type);
+      if (type === 'Model') type = '';
+      return 'App.' + Ember.String.classify(fullNameWithoutType + type);
+    }
+  }
+
   function resolveOther(parsedName) {
     if (!parsedName.name || !parsedName.type) {
       return this._super.apply(this, arguments);
@@ -110,13 +118,7 @@ module.exports = function(options) {
     if (options.fixToString) {
       var className = factory.toString();
       if (className.indexOf('(') !== -1) {
-        factory.toString = (function(type, fullNameWithoutType) {
-          return function () {
-            type = Ember.String.classify(type);
-            if (type === 'Model') type = '';
-            return 'App.' + Ember.String.classify(fullNameWithoutType + type);
-          }
-        })(parsedName.type, parsedName.fullNameWithoutType);
+        factory.toString = getToStringFunction(parsedName.type, parsedName.fullNameWithoutType);
       }
     }
 
