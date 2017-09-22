@@ -12,6 +12,16 @@ module.exports = function(options) {
   options.has = options.has || options.context.keys();
   options.components = options.components || Object.create(null);
 
+  // Convert has array to index for faster lookups
+  var hasIndex = Object.create(null);
+  var useHasIndex = false;
+  if (Array.isArray(options.has)) {
+    useHasIndex = true;
+    for (var i = 0; i < options.has.length; i++) {
+      hasIndex[options.has[i]] = 1;
+    }
+  }
+
   function parseName(fullName) {
     var nameParts = fullName.split(':');
     return {
@@ -39,21 +49,35 @@ module.exports = function(options) {
 
     var factory;
     var moduleName = false;
-    var variations = [options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType];
+    // Add a variation for Ember pod-like structure
+    var podVariation = options.modulePrefix + parsedName.fullNameWithoutType + '/' + parsedName.type;
+    if (parsedName.type === 'template' && parsedName.fullNameWithoutType.slice(0, 11) === 'components/') {
+      podVariation = options.modulePrefix + parsedName.fullNameWithoutType.slice(11) + '/' + parsedName.type;
+    }
+    var variations = [
+      podVariation,
+      options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType
+    ];
     var contextrequire = options.context;
 
-    if (Array.isArray(options.has)) {
-      for (var i = 0; i < options.extensions.length; i++) {
-        variations.push(variations[0] + options.extensions[i]);
-      }
+    if (useHasIndex) {
+      dance:
       for (var i = 0; i < variations.length; i++) {
-        if (options.has.indexOf(variations[i]) !== -1) {
+        // Try without an extension first
+        if (hasIndex[variations[i]]) {
           moduleName = variations[i];
           break;
         }
+        // Now try extension variations
+        for (var j = 0; j < options.extensions.length; j++) {
+          if (hasIndex[variations[i] + options.extensions[j]]) {
+            moduleName = variations[i] + options.extensions[j];
+            break dance;
+          }
+        }
       }
     } else {
-      moduleName = variations[0];
+      moduleName = options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType;
     }
 
     /**
