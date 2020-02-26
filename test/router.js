@@ -1,5 +1,7 @@
-var Router = module.exports = Ember.Router.extend()
+const Router = module.exports = Ember.Router.extend({
+  location: "history"
+})
 
 Router.map(function() {
-  this.resource('bear');
-});
+  this.route('bear')
+})

@@ -1,1 +1,1 @@
-module.exports = Ember.Route.extend({});
+module.exports = Ember.Route.extend({})

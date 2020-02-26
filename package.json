@@ -3,10 +3,11 @@
     "version": "1.1.0",
     "description": "An Ember resolver for use with webpack",
     "main": "index.js",
-    "files": ["index.js"],
+    "files": [
+        "index.js"
+    ],
     "scripts": {
-        "test": "grunt test",
-        "start": "grunt start"
+        "test": "webpack-dev-server"
     },
     "repository": {
         "type": "git",
@@ -16,21 +17,23 @@
         "url": "https://github.com/shama/ember-webpack-resolver/issues"
     },
     "license": "MIT",
-    "keywords": ["ember", "resolver", "webpack"],
+    "keywords": [
+        "ember",
+        "resolver",
+        "webpack"
+    ],
     "devDependencies": {
         "css-loader": "^0.25.0",
-        "ember-templates-loader": "~0.1.0",
-        "grunt": "^1.0.1",
-        "grunt-contrib-clean": "^1.0.0",
-        "grunt-contrib-connect": "^1.0.2",
-        "grunt-contrib-copy": "^1.0.0",
-        "grunt-contrib-qunit": "^1.2.0",
-        "grunt-contrib-watch": "^1.0.0",
-        "grunt-webpack": "^1.0.18",
-        "matchdep": "^1.0.1",
+        "ember-source": "3.2.2",
+        "ember-templates-loader": "~2.14.1-1",
+        "expose-loader": "^0.7.5",
+        "html-webpack-plugin": "^3.2.0",
+        "jquery": "3.4.1",
+        "qunitjs": "1.23.0",
         "script-loader": "^0.7.0",
         "style-loader": "^0.13.1",
-        "webpack": "^1.13.3",
-        "webpack-dev-server": "^1.16.2"
+        "webpack": "4.41.6",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.10.3"
     }
 }

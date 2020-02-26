@@ -1,30 +1,43 @@
 // Load Ember + Deps
-require('script!jquery/jquery');
-require('script!handlebars/handlebars');
-require('script!ember/ember');
+require("expose-loader?$!expose-loader?jQuery!jquery/dist/jquery.min.js")
+
+window.Ember = {}
+// This will include Ember in a more readable way, rather than using eval on it
+require("expose-loader?unused_var!ember-source/dist/ember.debug.js")
+
+// Use RSVP from Ember for Promises
+window.RSVP = Ember.RSVP
+window.Promise = Ember.RSVP.Promise
+
+require("script-loader!ember-source/dist/ember-testing.js")
 
 // Load QUnit
-require('script!qunit/qunit/qunit.js');
-require('style!css!qunit/qunit/qunit.css');
+require("script-loader!qunitjs/qunit/qunit.js")
+require("style-loader!css-loader!qunitjs/qunit/qunit.css")
 
 QUnit.config.autostart = false;
 
 // Create Fixture Ember App
-var App = Ember.Application.create({
+const App = Ember.Application.extend({
   Resolver: require('../?' + __dirname)()
 });
 
-App.rootElement = '#qunit-fixture'
-App.setupForTesting();
-App.injectTestHelpers();
-App.deferReadiness();
+const app = App.create({
+  rootElement: "#qunit-fixture",
+  LOG_ACTIVE_GENERATION: true,
+  LOG_VIEW_LOOKUPS: false
+})
+
+app.setupForTesting();
+app.injectTestHelpers();
+//App.deferReadiness();
 
 $(document).ready(function() {
   QUnit.start();
 });
 
 QUnit.testStart(function() {
-  App.reset();
+  app.reset();
 });
 
 // Automatically load all tests (files that end with _test.js)
