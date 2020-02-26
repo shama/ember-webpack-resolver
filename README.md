@@ -20,15 +20,10 @@ This resolver is intended to resolve modules with a folder structure like such:
 | --- models/
 | --- routes/
 | --- templates/
-| --- views/
 | --- app.js
 | --- router.js
 | - node_modules/
 | --- some-widget-ember-component
-| ----- index.js
-| ----- index.hbs
-| - bower_components/
-| --- some-other-ember-component
 | ----- index.js
 | ----- index.hbs
 ```
@@ -36,17 +31,17 @@ This resolver is intended to resolve modules with a folder structure like such:
 A very simple config will resolve just your local modules:
 
 ``` javascript
-var App = Ember.Application.create({
+const App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)()
 });
 ```
 
-If you're using a file extension other than `.js`, supply the lookup extensions such use with coffeescript:
+If you're using a file extension other than `.js`, supply the lookup extensions such use with typescript:
 
 ``` javascript
-var App = Ember.Application.create({
+const App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
-    extensions: ['.coffee', '.hbs']
+    extensions: ['.ts', '.hbs']
   })
 });
 ```
@@ -55,15 +50,15 @@ var App = Ember.Application.create({
 If you have a custom module type that you need to resolve, use the `lookupPatterns` option. It takes an array of functions with each function receiving a `parsedName` argument. The function optionally returns a `moduleName` value based on some criteria.
 
 ``` javascript
-var reactModuleFilter = function(parsedName) {
+const reactModuleFilter = function(parsedName) {
   if (parsedName.type === 'react') {
     return './react/' + parsedName.fullNameWithoutType
   }
 }
 
-var App = Ember.Application.create({
+const App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
-    extensions: ['.coffee', '.hbs'],
+    extensions: ['.ts', '.hbs'],
     lookupPatterns: [reactModuleFilter]
   })
 });
@@ -74,7 +69,7 @@ var App = Ember.Application.create({
 If you want to also resolve modules within vendor folders, a bit more configuration is required:
 
 ``` javascript
-var App = Ember.Application.create({
+const App = Ember.Application.create({
   Resolver: require('ember-webpack-resolver?' + __dirname)({
     components: {
       'some-widget': require('some-widget-ember-component'),
@@ -113,5 +108,5 @@ module.exports = {
 * 0.1.0 - initial release
 
 ## License
-Copyright (c) 2013 Kyle Robinson Young  
+Copyright (c) 2020 Kyle Robinson Young  
 Licensed under the MIT license.
