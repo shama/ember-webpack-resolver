@@ -141,7 +141,7 @@ module.exports = function(options) {
     // To fix class introspection
     if (options.fixToString) {
       var className = factory.toString();
-      if (className.indexOf('(') !== -1) {
+      if (className.indexOf('(') !== -1 || className === "@ember/component") {
         factory.toString = getToStringFunction(parsedName.type, parsedName.fullNameWithoutType);
       }
     }
@@ -166,6 +166,9 @@ module.exports = function(options) {
     resolveTemplate: resolveOther, // TODO: Check Ember.TEMPLATES as backup
     resolveRouter: resolveRouter,
     parseName: parseName,
+    makeToString(factory, fullName) {
+        return '' + options.modulePrefix + '@' + fullName + ':';
+    },
     normalize: function(fullName) {
       // replace `.` with `/` in order to make nested controllers work in the following cases
       // 1. `needs: ['posts/post']`
