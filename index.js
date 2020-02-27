@@ -166,7 +166,7 @@ module.exports = function(options) {
     resolveTemplate: resolveOther, // TODO: Check Ember.TEMPLATES as backup
     resolveRouter: resolveRouter,
     parseName: parseName,
-    makeToString(factory, fullName) {
+    makeToString: function(factory, fullName) {
         return '' + options.modulePrefix + '@' + fullName + ':';
     },
     normalize: function(fullName) {
