@@ -156,7 +156,9 @@ module.exports = function(options) {
     if (parsedName.fullName === 'router:main') {
       var name = options.modulePrefix + 'router';
       if (options.context.keys().indexOf(name) !== -1) {
-        return options.context(name);
+        var context = options.context(name);
+        var isModule = typeof context === "object" && typeof context.default === "function";
+        return isModule ? context.default : context;
       }
     }
   }
