@@ -49,14 +49,17 @@ module.exports = function(options) {
 
     var factory;
     var moduleName = false;
-    // Add a variation for Ember pod-like structure
+    // Add variations for Ember pod-like structure
     var podVariation = options.modulePrefix + parsedName.fullNameWithoutType + '/' + parsedName.type;
+    var withinComponentPodVariation = options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType + '/' + parsedName.type;
     if (parsedName.type === 'template' && parsedName.fullNameWithoutType.slice(0, 11) === 'components/') {
       podVariation = options.modulePrefix + parsedName.fullNameWithoutType.slice(11) + '/' + parsedName.type;
+      withinComponentPodVariation = options.modulePrefix + 'components/' + parsedName.fullNameWithoutType.slice(11) + '/' + parsedName.type;
     }
     var variations = [
       podVariation,
-      options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType
+      options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType,
+      withinComponentPodVariation
     ];
     var contextrequire = options.context;
 
