@@ -23,11 +23,11 @@
         "webpack"
     ],
     "devDependencies": {
-        "css-loader": "^4.2.1",
+        "css-loader": "^4.3.0",
         "ember-source": "3.12.2",
         "ember-templates-loader": "~2.14.1-1",
         "expose-loader": "^0.7.5",
-        "html-webpack-plugin": "^4.3.0",
+        "html-webpack-plugin": "^4.5.0",
         "jquery": "^3.5.1",
         "qunitjs": "1.23.0",
         "script-loader": "^0.7.2",
