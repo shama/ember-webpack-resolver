@@ -7,6 +7,7 @@ module.exports = function(options) {
   }
 
   options.modulePrefix = options.modulePrefix || './';
+  options.podModulePrefix = options.podModulePrefix || "pods";
   options.extensions = options.extensions || ['.js', '.hbs'];
   options.fixToString = options.fixToString !== false;
   options.has = options.has || options.context.keys();
@@ -56,10 +57,14 @@ module.exports = function(options) {
       podVariation = options.modulePrefix + parsedName.fullNameWithoutType.slice(11) + '/' + parsedName.type;
       withinComponentPodVariation = options.modulePrefix + 'components/' + parsedName.fullNameWithoutType.slice(11) + '/' + parsedName.type;
     }
+
+    var withinPodModulePrefixVariation = "./" + options.podModulePrefix + podVariation.slice(1);
+
     var variations = [
       podVariation,
       options.modulePrefix + parsedName.type + 's/' + parsedName.fullNameWithoutType,
-      withinComponentPodVariation
+      withinComponentPodVariation,
+      withinPodModulePrefixVariation
     ];
     var contextrequire = options.context;
 
