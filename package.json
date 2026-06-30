@@ -24,7 +24,7 @@
     ],
     "devDependencies": {
         "css-loader": "^7.1.4",
-        "ember-source": "3.12.2",
+        "ember-source": "7.1.0",
         "ember-templates-loader": "~2.14.1-1",
         "expose-loader": "^0.7.5",
         "html-webpack-plugin": "^4.5.2",
